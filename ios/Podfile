@@ -12,6 +12,13 @@ target 'InstaAWS' do
     :hermes_enabled => false
   )
 
+
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
+  pod 'react-native-blur', :path => '../node_modules/@react-native-community/blur'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'InstaAWSTests' do
     inherit! :complete
     # Pods for testing

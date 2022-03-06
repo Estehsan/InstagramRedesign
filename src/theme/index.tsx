@@ -4,6 +4,7 @@ export const Colors = {
     black: '#020a1c',
     combination: '#272727',
 
+    bg: '#ecf0f6',
     w: '#fff',
     b: '#1E1D20',
 
@@ -16,5 +17,17 @@ export const Colors = {
     lgrey: '#b1bdd0',
     dgrey: '#8e9cb1',
     red: '##ff2422',
+
+    customShadow1: {
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 9,
+      },
+      shadowOpacity: 0.48,
+      shadowRadius: 11.95,
+
+      elevation: 18,
+    },
   },
 };
