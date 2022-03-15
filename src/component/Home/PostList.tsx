@@ -15,6 +15,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {iPost} from '../../types/model';
+import Carousel from './Carousel';
 
 interface iFeedPost {
   FeedData: iPost;
@@ -24,12 +25,32 @@ const PostList = ({FeedData}: iFeedPost) => {
   const [liked, setLiked] = useState(false);
   const [save, setSave] = useState(false);
 
+  const [description, setDescription] = useState(false);
+
   const onLike = () => {
     setLiked(!liked);
   };
   const onSave = () => {
     setSave(!save);
   };
+  const onDescription = () => {
+    setDescription(!description);
+  };
+
+  let content = null;
+
+  if (FeedData.image) {
+    content = (
+      <Image
+        style={{width: '100%', height: 350, borderRadius: 20}}
+        source={{
+          uri: FeedData.image,
+        }}
+      />
+    );
+  } else if (FeedData.images) {
+    content = <Carousel images={FeedData.images} />;
+  }
 
   return (
     <View style={styles.Main}>
@@ -52,14 +73,16 @@ const PostList = ({FeedData}: iFeedPost) => {
         </View>
       </View>
 
-      <View style={styles.CenterImg}>
-        <Image
-          style={{width: '100%', height: 350, borderRadius: 20}}
-          source={{
-            uri: FeedData.image,
-          }}
-        />
+      <View style={styles.CenterImg}>{content}</View>
+
+      <View style={styles.DescriptionBox}>
+        <TouchableOpacity onPress={onDescription}>
+          <Text numberOfLines={description === true ? 0 : 3}>
+            {FeedData.description}
+          </Text>
+        </TouchableOpacity>
       </View>
+
       <View style={styles.Bottom}>
         <View style={styles.likeComment}>
           <TouchableOpacity onPress={onLike}>
@@ -143,5 +166,9 @@ const styles = StyleSheet.create({
     width: '50%',
     alignItems: 'flex-end',
     paddingHorizontal: 10,
+  },
+  DescriptionBox: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
 });
