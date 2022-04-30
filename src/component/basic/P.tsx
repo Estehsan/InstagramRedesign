@@ -1,6 +1,6 @@
 import {StyleSheet, useColorScheme, Text} from 'react-native';
 import React from 'react';
-import {Colors} from '../../theme';
+import {Col} from '../../theme';
 
 const P = ({children, ...props}) => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -8,7 +8,7 @@ const P = ({children, ...props}) => {
   return (
     <Text
       style={{
-        color: isDarkMode ? Colors.colors.w : Colors.colors.b,
+        color: isDarkMode ? Col.colors.w : Col.colors.b,
         fontFamily: 'Poppins-Regular',
         fontSize: 16,
         ...props,

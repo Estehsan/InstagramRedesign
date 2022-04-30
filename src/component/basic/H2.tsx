@@ -1,7 +1,7 @@
 import {StyleSheet, useColorScheme} from 'react-native';
 import React from 'react';
 import {Text} from 'react-native-elements';
-import {Colors} from '../../theme';
+import {Col} from '../../theme';
 
 const H1 = ({children}) => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -10,7 +10,7 @@ const H1 = ({children}) => {
     <Text
       h2
       h2Style={{
-        color: isDarkMode ? Colors.colors.w : Colors.colors.b,
+        color: isDarkMode ? Col.colors.w : Col.colors.b,
         fontFamily: 'Poppins-Regular',
         fontWeight: '600',
       }}>

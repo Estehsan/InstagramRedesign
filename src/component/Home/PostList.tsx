@@ -5,10 +5,12 @@ import {
   ImageBackground,
   Image,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  Pressable,
 } from 'react-native';
-import React, {useState} from 'react';
-import {H3, H4, P, LParagraph} from '../basic';
-import {Colors} from '../../theme';
+import React, {useRef, useState} from 'react';
+import {H3, H4, P, LParagraph, GlobalCSS} from '../basic';
+import {Col, Colors} from '../../theme';
 import {Avatar} from 'react-native-elements';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -16,14 +18,17 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {iPost} from '../../types/model';
 import Carousel from './Carousel';
+import {useNavigation} from '@react-navigation/native';
 
 interface iFeedPost {
   FeedData: iPost;
 }
 
 const PostList = ({FeedData}: iFeedPost) => {
+  const navigation = useNavigation();
   const [liked, setLiked] = useState(false);
   const [save, setSave] = useState(false);
+  const lastTap = useRef(0);
 
   const [description, setDescription] = useState(false);
 
@@ -35,6 +40,13 @@ const PostList = ({FeedData}: iFeedPost) => {
   };
   const onDescription = () => {
     setDescription(!description);
+  };
+
+  const doubleTap = () => {
+    const now = Date.now();
+    if (lastTap.current && now - lastTap.current < 300) {
+      setLiked(!liked);
+    }
   };
 
   let content = null;
@@ -73,7 +85,9 @@ const PostList = ({FeedData}: iFeedPost) => {
         </View>
       </View>
 
-      <View style={styles.CenterImg}>{content}</View>
+      <Pressable onPress={doubleTap} style={styles.CenterImg}>
+        {content}
+      </Pressable>
 
       <View style={styles.DescriptionBox}>
         <TouchableOpacity onPress={onDescription}>
@@ -89,20 +103,24 @@ const PostList = ({FeedData}: iFeedPost) => {
             <AntDesign
               name={liked ? 'heart' : 'hearto'}
               size={30}
-              color={liked ? 'red' : Colors.colors.black}
+              color={liked ? 'red' : Col.colors.black}
             />
           </TouchableOpacity>
           <View style={{paddingHorizontal: 10}}>
             <LParagraph>{FeedData.nofLikes}</LParagraph>
           </View>
-          <MaterialCommunityIcons
-            name="comment-processing-outline"
-            size={30}
-            color={'black'}
-          />
-          <View style={{paddingHorizontal: 10}}>
-            <LParagraph>{FeedData.nofComments}</LParagraph>
-          </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Comment')}
+            style={[GlobalCSS.row]}>
+            <MaterialCommunityIcons
+              name="comment-processing-outline"
+              size={30}
+              color={'black'}
+            />
+            <View style={{paddingHorizontal: 10}}>
+              <LParagraph>{FeedData.nofComments}</LParagraph>
+            </View>
+          </TouchableOpacity>
         </View>
         <View style={styles.Save}>
           <TouchableOpacity onPress={onSave}>
@@ -124,10 +142,10 @@ const styles = StyleSheet.create({
   Main: {
     width: '96%',
     marginHorizontal: '2%',
-    backgroundColor: Colors.colors.w,
+    backgroundColor: Col.colors.w,
     borderRadius: 20,
     marginVertical: 4,
-    ...Colors.colors.customShadow1,
+    ...Col.colors.customShadow1,
   },
 
   top: {
@@ -139,7 +157,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: '5%',
     borderRadius: 20,
-    ...Colors.colors.customShadow1,
+    ...Col.colors.customShadow1,
   },
   Left: {
     alignItems: 'center',

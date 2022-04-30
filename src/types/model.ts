@@ -30,3 +30,8 @@ export interface iComment {
   comment: string;
   createdAt: string;
 }
+
+export interface iChildren {
+  title: string;
+  children: JSX.Element;
+}
