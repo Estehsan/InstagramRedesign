@@ -1,6 +1,8 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeTabNavi from './HomeTabNavi';
+import {H1} from '../basic';
+import Profile from '../../Screens/Profile/Profile';
 
 const Bottom = createBottomTabNavigator();
 
@@ -14,7 +16,15 @@ function BottomTabNavi() {
         name="HomeTabNavi"
         component={HomeTabNavi}
       />
+
       <Bottom.Screen name="Second" component={Second} />
+      <Bottom.Screen
+        options={{
+          headerShown: false,
+        }}
+        name="Profile"
+        component={Profile}
+      />
     </Bottom.Navigator>
   );
 }
@@ -22,7 +32,7 @@ function BottomTabNavi() {
 function Second() {
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home Screen</Text>
+      <H1>Home Screen</H1>
     </View>
   );
 }

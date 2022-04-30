@@ -35,3 +35,8 @@ export interface iChildren {
   title: string;
   children: JSX.Element;
 }
+
+export interface iItem {
+  title: string;
+  item: JSX.Element;
+}

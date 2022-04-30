@@ -1,24 +1,27 @@
-import {StyleSheet, useColorScheme} from 'react-native';
+import {StyleSheet, useColorScheme, Text} from 'react-native';
 import React from 'react';
-import {Text} from 'react-native-elements';
-import {Col} from '../../theme';
+import {Col, theme} from '../../theme';
 
-const H4 = ({children}) => {
-  const isDarkMode = useColorScheme() === 'dark';
+const H3 = ({children, font, color}) => {
+  const isDarkMode = useColorScheme() === 'light';
 
   return (
-    <Text
-      h4
-      h4Style={{
-        color: isDarkMode ? Col.colors.w : Col.colors.b,
-        fontFamily: 'Poppins-Regular',
-        fontWeight: '200',
-      }}>
-      {children}
-    </Text>
+    <>
+      <Text
+        style={{
+          fontSize: 10,
+          color: color ? color : isDarkMode ? Col.colors.b : Col.colors.w,
+          fontFamily: font ? font : 'Poppins-Regular',
+          fontWeight: '600',
+          letterSpacing: 2,
+          lineHeight: 24,
+        }}>
+        {children}
+      </Text>
+    </>
   );
 };
 
-export default H4;
+export default H3;
 
 const styles = StyleSheet.create({});
