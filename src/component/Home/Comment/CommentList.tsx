@@ -19,7 +19,7 @@ const CommentList = ({item}: iItemAll) => {
           marginRight: 10,
         }}
         source={{
-          uri: item.user.image,
+          uri: item.User.image,
         }}
       />
       <View
@@ -29,10 +29,11 @@ const CommentList = ({item}: iItemAll) => {
             flex: 1,
           },
         ]}>
-        <H3>
-          {item.user.username}
-          <H4>{item.comment}</H4>
-        </H3>
+        <P>
+          {item.User?.username}
+
+          <H4> {item.comment}</H4>
+        </P>
       </View>
       <View>
         <AntDesign name={'heart'} size={20} color={Col.colors.black} />

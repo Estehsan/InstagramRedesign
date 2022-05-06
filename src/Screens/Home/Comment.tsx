@@ -6,11 +6,14 @@ import CommentList from '../../component/Home/Comment/CommentList';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import {Col} from '../../theme';
 
-const Comment = () => {
+const Comment = ({route}) => {
+  const {data} = route.params;
+
+  console.log(data);
   return (
     <MainBg>
       <FlatList
-        data={commentData}
+        data={data}
         renderItem={({item}) => <CommentList item={item} />}
       />
       <Input />

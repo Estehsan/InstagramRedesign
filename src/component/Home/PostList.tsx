@@ -20,11 +20,7 @@ import {iPost} from '../../types/model';
 import Carousel from './Carousel';
 import {useNavigation} from '@react-navigation/native';
 
-interface iFeedPost {
-  FeedData: iPost;
-}
-
-const PostList = ({FeedData}: iFeedPost) => {
+const PostList = ({FeedData}) => {
   const navigation = useNavigation();
   const [liked, setLiked] = useState(false);
   const [save, setSave] = useState(false);
@@ -72,11 +68,11 @@ const PostList = ({FeedData}: iFeedPost) => {
             size={50}
             rounded
             source={{
-              uri: FeedData.user.image,
+              uri: FeedData?.User?.image,
             }}
           />
           <View style={{alignItem: 'center', paddingLeft: 20}}>
-            <P>{FeedData.user.username}</P>
+            <P>{FeedData.User?.username}</P>
             <LParagraph>{FeedData.createdAt}</LParagraph>
           </View>
         </View>
@@ -110,7 +106,11 @@ const PostList = ({FeedData}: iFeedPost) => {
             <LParagraph>{FeedData.nofLikes}</LParagraph>
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Comment')}
+            onPress={() =>
+              navigation.navigate('Comment', {
+                data: FeedData.Comments.items,
+              })
+            }
             style={[GlobalCSS.row]}>
             <MaterialCommunityIcons
               name="comment-processing-outline"
